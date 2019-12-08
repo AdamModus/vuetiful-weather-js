@@ -1,0 +1,2 @@
+export const USER_SET_CITY = 'USER_SET_CITY';
+export const SET_COUNTRY_CODE = 'SET_COUNTRY_CODE';
