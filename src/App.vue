@@ -1,56 +1,69 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+    <!-- Start of toolbar -->
+    <v-app-bar app>
+      <v-btn icon @click="themeButtonClicked">
+        <v-icon>mdi-invert-colors</v-icon>
       </v-btn>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Vuetiful Weather</span>
+        <span class="caption ml-2">Powered by Vue/tify</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn text to="/">Home</v-btn>
+        <v-btn text to="/about">About</v-btn>
+      </v-toolbar-items>
+      <v-app-bar-nav-icon
+        @click.stop="drawer = !drawer"
+        class="hidden-md-and-up"
+      ></v-app-bar-nav-icon>
     </v-app-bar>
+    <!-- End of toolbar -->
 
+    <!-- Start of mobile side menu -->
+    <v-navigation-drawer app v-model="drawer" right>
+      <v-list nav>
+        <v-list-item-group>
+          <v-list-item to="/">Home</v-list-item>
+          <v-list-item to="/about">About</v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+    <!-- End of mobile side menu -->
+
+    <!-- Start of actual app content -->
     <v-content>
-      <HelloWorld />
+      <router-view />
     </v-content>
+    <!-- End of actual app content -->
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import Vue from 'vue';
+import { mapActions, mapState } from 'vuex';
 
 export default {
-  name: "App",
-
-  components: {
-    HelloWorld
+  name: 'App',
+  computed: {
+    ...mapState({
+      isDarkTheme: state => state.theme.isDark,
+    }),
   },
-
+  watch: {
+    isDarkTheme: function() {
+      this.$vuetify.theme.dark = this.isDarkTheme;
+    },
+  },
+  methods: {
+    ...mapActions(['switchTheme']),
+    themeButtonClicked() {
+      this.switchTheme(this.isDarkTheme);
+    },
+  },
   data: () => ({
-    //
-  })
+    drawer: false, // Hide mobile side menu by default
+  }),
 };
 </script>
