@@ -52,7 +52,7 @@ export default {
     }),
   },
   watch: {
-    isDarkTheme: function() {
+    isDarkTheme() {
       this.$vuetify.theme.dark = this.isDarkTheme;
     },
   },
