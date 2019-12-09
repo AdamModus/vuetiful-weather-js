@@ -1,4 +1,4 @@
-# banana
+# Vuetiful Weather JS
 
 ## Project setup
 ```
