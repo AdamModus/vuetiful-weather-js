@@ -1,5 +1,5 @@
 <template>
-  <v-container v-if="currentWeather.temperature">
+  <v-container v-if="currentWeather">
     <v-row>
       <v-col cols="12">
         <h3>Current weather</h3>
