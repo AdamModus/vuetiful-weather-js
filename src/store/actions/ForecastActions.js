@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import store from '..';
 import MUTATION_TYPES from '../mutation-types';
 
@@ -6,6 +7,7 @@ const fiveDayHourlyUrlBase = 'http://api.openweathermap.org/data/2.5/forecast';
 const sixteenDaysForecastUrlBase =
   'http://api.openweathermap.org/data/2.5/forecast/daily';
 const apiKey = '0316ba5cb8868612facee65c17e8f4a0';
+const dateFormat = 'iii do MMM';
 
 function buildCurrentWeatherForecastUrl(city, countryCode = undefined) {
   const countryCodeFragment =
@@ -42,14 +44,54 @@ function extractCurrentForecastFromResponse(response) {
 }
 
 function extractSixteenDayForecastFromResponse(response) {
-  const forecast = {};
-  console.log(response);
+  const forecast = [];
+  for (let i = 0; i < response.list.length; i++) {
+    const iDay = response.list[i];
+    const date = new Date(iDay.dt * 1000);
+    const dateString = format(date, dateFormat);
+    const extracted = {
+      date,
+      dateString,
+      maxTemperature: iDay.temp.max,
+      minTemperature: iDay.temp.min,
+      pressure: iDay.pressure,
+      humidity: iDay.humidity,
+      windSpeed: iDay.speed,
+      cloudiness: iDay.clouds,
+      rain: iDay.rain,
+      snow: iDay.snow,
+      description: iDay.weather[0].description,
+      iconId: iDay.weather[0].id,
+    };
+    forecast.push(extracted);
+  }
   return forecast;
 }
 
 function extractFiveDayHourlyForecastFromResponse(response) {
-  const forecast = {};
-  console.log(response);
+  const forecast = [];
+  for (let i = 0; i < response.list.length; i++) {
+    const curr = response.list[i];
+    const date = new Date(curr.dt * 1000);
+    const dateString = format(date, dateFormat);
+    const extracted = {
+      date,
+      dateString,
+      pressure: curr.main.pressure,
+      humidity: curr.main.humidity,
+      windSpeed: curr.wind.speed,
+      cloudiness: curr.clouds.all,
+      averageTemperature: curr.main.temp,
+      maxTemperature: curr.main.temp_max,
+      minTemperature: curr.main.temp_min,
+      description: curr.weather[0].description,
+      iconId: curr.weather[0].id,
+      rain: curr.rain ? curr.rain['3h'] : undefined,
+      snow: curr.snow ? curr.snow['3h'] : undefined,
+    };
+    forecast.push(extracted);
+  }
+
   return forecast;
 }
 
@@ -61,6 +103,7 @@ export default {
         store.dispatch('setCountryCode', result.sys.country);
         const forecast = extractCurrentForecastFromResponse(result);
         commit(MUTATION_TYPES.SET_CURRENT_WEATHER_FORECAST, forecast);
+        store.dispatch('fetchSixteenDaysForecast', city, countryCode);
       });
   },
 
@@ -68,9 +111,9 @@ export default {
     fetch(buildSixteenDaysForecastURL(city, countryCode))
       .then(response => response.json())
       .then(result => {
-        store.dispatch('setCountryCode', result.country);
         const forecast = extractSixteenDayForecastFromResponse(result);
         commit(MUTATION_TYPES.SET_SIXTEEN_DAY_WEATHER_FORECAST, forecast);
+        store.dispatch('fetchFiveDayHourlyForecast', city, countryCode);
       });
   },
 
@@ -78,7 +121,6 @@ export default {
     fetch(buildFiveDayHourlyForecastURL(city, countryCode))
       .then(response => response.json())
       .then(result => {
-        store.dispatch('setCountryCode', result.city.country);
         const forecast = extractFiveDayHourlyForecastFromResponse(result);
         commit(MUTATION_TYPES.SET_FIVE_DAY_HOURLY_WEATHER_FORECAST, forecast);
       });
