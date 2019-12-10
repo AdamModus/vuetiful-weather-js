@@ -40,7 +40,6 @@
 </style>
 
 <script>
-import Vue from 'vue';
 import { mapState, mapGetters } from 'vuex';
 import store from '../../store';
 

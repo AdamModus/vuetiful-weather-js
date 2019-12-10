@@ -7,7 +7,6 @@
 <style scoped></style>
 
 <script>
-import Vue from 'vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {
