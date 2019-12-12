@@ -7,7 +7,7 @@
       <v-col cols="6">
         <v-row>
           <v-col cols="6">
-            <div class="owf owf-5x" v-bind:class="weatherIconId"></div>
+            <div v-bind:class="weatherIconId"></div>
             <div>{{ this.currentWeather.description.toLowerCase() }}</div>
           </v-col>
           <v-col cols="3">
@@ -23,25 +23,16 @@
         <p>Wind speed: {{ this.currentWeather.windSpeed }} m/s</p>
         <p>Cloud cover: {{ this.currentWeather.cloudiness }}%</p>
       </v-col>
-
-      <div class="tempelement">
-        <h1>JSON</h1>
-        <p>{{ currentWeather }}</p>
-      </div>
     </v-row>
   </v-container>
 </template>
 
-<style scoped>
-.tempelement {
-  position: absolute;
-  bottom: 50px;
-}
-</style>
+<style scoped></style>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
 import store from '../../store';
+import utils from './../../utils/index';
 
 export default {
   name: 'CurrentWeather',
@@ -55,10 +46,7 @@ export default {
       temperature: 'convertedCurrentTemperature',
     }),
     weatherIconId() {
-      if (this.currentWeather.iconId) {
-        return 'owf-' + this.currentWeather.iconId;
-      }
-      return '';
+      return utils.mapOWMCodeToIconClass(this.currentWeather.iconId);
     },
   },
 };

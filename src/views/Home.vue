@@ -17,9 +17,7 @@
   </v-container>
 </template>
 
-<style scoped>
-@import '../assets/owfont/css/owfont-regular.min.css';
-</style>
+<style scoped></style>
 
 <script>
 import UnitPicker from '@/components/UnitPicker/UnitPicker';
