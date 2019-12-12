@@ -1,5 +1,5 @@
 <template>
-  <v-btn-toggle mandatory>
+  <v-btn-toggle dense mandatory>
     <v-btn text value="Celsius" @click="unitPicked('CELSIUS')"> C </v-btn>
     <v-btn text value="Fahrenheit" @click="unitPicked('FAHRENHEIT')"> F </v-btn>
   </v-btn-toggle>

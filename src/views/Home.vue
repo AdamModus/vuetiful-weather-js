@@ -1,11 +1,11 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="4" align-self="center">
+    <v-row justify="center" align="center">
+      <v-col cols="12" md="6">
         <LocationInput></LocationInput>
         <UnitPicker></UnitPicker>
       </v-col>
-      <v-col cols="8">
+      <v-col cols="12" md="6">
         <CurrentWeather></CurrentWeather>
       </v-col>
     </v-row>

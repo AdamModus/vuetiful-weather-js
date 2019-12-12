@@ -1,6 +1,6 @@
 <template>
   <v-form @submit.prevent="submit">
-    <v-text-field label="Where are you?" v-model="inputCity"></v-text-field>
+    <v-text-field outlined label="Where are you?" v-model="inputCity"></v-text-field>
   </v-form>
 </template>
 

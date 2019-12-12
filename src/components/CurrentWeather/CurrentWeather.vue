@@ -1,33 +1,47 @@
 <template>
   <v-container v-if="currentWeather">
     <v-row>
-      <v-col cols="12">
-        <h3>Current weather</h3>
+      <v-col class="text-center" cols="12">
+        <h3>Current weather in {{ this.city }}</h3>
       </v-col>
       <v-col cols="6">
-        <v-row>
-          <v-col cols="6">
-            <div v-bind:class="weatherIconId"></div>
-            <div>{{ this.currentWeather.description.toLowerCase() }}</div>
+        <v-card class="fill-height">
+          <v-col class="weather-description text-center" cols="12">
+            {{ getMainText() }}
           </v-col>
-          <v-col cols="3">
-            <div>
-              {{ this.temperature + ' ' + this.tempUnit.charAt(0) }}
-            </div>
+          <v-col
+            class="text-center weather-icon"
+            v-bind:class="weatherIconId"
+            cols="12"
+          >
           </v-col>
-        </v-row>
+        </v-card>
       </v-col>
       <v-col cols="6">
-        <p>Humidity: {{ this.currentWeather.humidity }}</p>
-        <p>Pressure: {{ this.currentWeather.pressure }} mbar</p>
-        <p>Wind speed: {{ this.currentWeather.windSpeed }} m/s</p>
-        <p>Cloud cover: {{ this.currentWeather.cloudiness }}%</p>
+        <v-card class="fill-height">
+          <v-card-text>
+            <p>Humidity: {{ this.currentWeather.humidity }}</p>
+            <p>Pressure: {{ this.currentWeather.pressure }} mbar</p>
+            <p>Wind speed: {{ this.currentWeather.windSpeed }} m/s</p>
+            <p>Cloud cover: {{ this.currentWeather.cloudiness }}%</p>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<style scoped></style>
+<style scoped>
+.fill-height {
+  height: 100%;
+}
+.weather-icon {
+  font-size: 10vh;
+}
+.weather-description {
+  text-transform: capitalize;
+}
+</style>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
@@ -41,12 +55,25 @@ export default {
     ...mapState({
       currentWeather: state => state.forecast.currentWeatherForecast,
       tempUnit: state => state.temperatureUnit.unit,
+      city: state => state.location.city,
     }),
     ...mapGetters({
       temperature: 'convertedCurrentTemperature',
     }),
     weatherIconId() {
       return services.mapOWMCodeToIconClass(this.currentWeather.iconId);
+    },
+  },
+
+  methods: {
+    getMainText: function() {
+      const mainText =
+        this.currentWeather.description.toLowerCase() +
+        ' at ' +
+        this.temperature +
+        'º' +
+        this.tempUnit.charAt(0);
+      return mainText;
     },
   },
 };
