@@ -32,7 +32,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import store from '../../store';
-import utils from './../../utils/index';
+import services from './../../services/index';
 
 export default {
   name: 'CurrentWeather',
@@ -46,7 +46,7 @@ export default {
       temperature: 'convertedCurrentTemperature',
     }),
     weatherIconId() {
-      return utils.mapOWMCodeToIconClass(this.currentWeather.iconId);
+      return services.mapOWMCodeToIconClass(this.currentWeather.iconId);
     },
   },
 };

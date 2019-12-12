@@ -7,7 +7,7 @@ const fiveDayHourlyUrlBase = 'http://api.openweathermap.org/data/2.5/forecast';
 const sixteenDaysForecastUrlBase =
   'http://api.openweathermap.org/data/2.5/forecast/daily';
 const apiKey = '0316ba5cb8868612facee65c17e8f4a0';
-const dateFormat = 'iii do MMM';
+const dateFormat = 'iii do';
 
 function buildCurrentWeatherForecastUrl(city, countryCode = undefined) {
   const countryCodeFragment =

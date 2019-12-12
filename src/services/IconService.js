@@ -178,10 +178,12 @@ const iconToClassMap = {
   'night-957': 'strong-wind',
 };
 
-export default function mapOWMCodeToIconClass(code, day = undefined) {
-  const prefix = 'wi wi-';
-  if (day) {
-    return prefix + iconToClassMap[day + '-' + code];
-  }
-  return prefix + iconToClassMap[code];
-}
+export default {
+  mapOWMCodeToIconClass(code, day = undefined) {
+    const prefix = 'wi wi-';
+    if (day) {
+      return prefix + iconToClassMap[day + '-' + code];
+    }
+    return prefix + iconToClassMap[code];
+  },
+};
