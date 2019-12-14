@@ -1,19 +1,19 @@
 <template>
   <v-container v-if="currentWeather">
     <v-row>
-      <v-col class="text-center" cols="12">
-        <h3>Current weather in {{ this.city }}</h3>
-      </v-col>
       <v-col cols="6">
         <v-card class="fill-height">
-          <v-col class="weather-description text-center" cols="12">
-            {{ getMainText() }}
+          <v-col class="text-center" cols="12">
+            It is {{ this.temperature }}º {{ this.tempUnit.charAt(0) }}
           </v-col>
           <v-col
             class="text-center weather-icon"
             v-bind:class="weatherIconId"
             cols="12"
           >
+          </v-col>
+          <v-col class="weather-description text-center" cols="12">
+            {{ this.currentWeather.description.toLowerCase() }}
           </v-col>
         </v-card>
       </v-col>

@@ -2,8 +2,22 @@
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="12" md="6">
-        <LocationInput></LocationInput>
-        <UnitPicker></UnitPicker>
+        <v-card>
+          <v-row>
+            <v-spacer></v-spacer>
+            <v-col cols="10">
+              <LocationInput></LocationInput>
+            </v-col>
+            <v-spacer></v-spacer>
+          </v-row>
+          <v-row>
+            <v-spacer></v-spacer>
+            <v-col cols="10">
+              <UnitPicker></UnitPicker>
+            </v-col>
+            <v-spacer></v-spacer>
+          </v-row>
+        </v-card>
       </v-col>
       <v-col cols="12" md="6">
         <CurrentWeather></CurrentWeather>
