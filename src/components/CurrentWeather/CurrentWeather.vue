@@ -45,7 +45,6 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import store from '../../store';
 import services from './../../services/index';
 
 export default {
@@ -62,18 +61,6 @@ export default {
     }),
     weatherIconId() {
       return services.mapOWMCodeToIconClass(this.currentWeather.iconId);
-    },
-  },
-
-  methods: {
-    getMainText: function() {
-      const mainText =
-        this.currentWeather.description.toLowerCase() +
-        ' at ' +
-        this.temperature +
-        'º' +
-        this.tempUnit.charAt(0);
-      return mainText;
     },
   },
 };

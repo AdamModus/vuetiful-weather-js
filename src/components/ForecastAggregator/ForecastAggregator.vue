@@ -25,8 +25,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import store from '../../store';
-import services from './../../services/index';
+import services from '@/services/index';
 
 export default {
   name: 'ForecastAggregator',

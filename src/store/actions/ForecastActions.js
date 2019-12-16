@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import store from '..';
+import store from '@/store';
 import MUTATION_TYPES from '../mutation-types';
 
 const currentWeatherUrlBase = 'http://api.openweathermap.org/data/2.5/weather';
@@ -100,6 +100,12 @@ export default {
     fetch(buildCurrentWeatherForecastUrl(city, countryCode))
       .then(response => response.json())
       .then(result => {
+        if (result.cod === '404' || result.cod === '400') {
+          store.dispatch('setLocationValidity', false);
+          return;
+        }
+
+        store.dispatch('setLocationValidity', true);
         store.dispatch('setCountryCode', result.sys.country);
         const forecast = extractCurrentForecastFromResponse(result);
         commit(MUTATION_TYPES.SET_CURRENT_WEATHER_FORECAST, forecast);
