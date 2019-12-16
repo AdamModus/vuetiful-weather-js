@@ -18,7 +18,7 @@
         </v-card>
       </v-col>
       <v-col cols="6">
-        <v-card class="fill-height">
+        <v-card class="fill-height d-flex align-center text-center">
           <v-card-text>
             <p>Humidity: {{ this.currentWeather.humidity }}</p>
             <p>Pressure: {{ this.currentWeather.pressure }} mbar</p>
