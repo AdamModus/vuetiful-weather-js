@@ -1,3 +1,4 @@
+import backgroundImageActions from './BackgroundImageActions';
 import forecastActions from './ForecastActions';
 import locationActions from './LocationActions';
 import temperatureUnitActions from './TemperatureUnitActions';
@@ -8,4 +9,5 @@ export default {
   ...temperatureUnitActions,
   ...locationActions,
   ...forecastActions,
+  ...backgroundImageActions,
 };

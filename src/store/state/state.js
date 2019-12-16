@@ -2,6 +2,7 @@ export default {
   theme: {
     isDark: true,
   },
+  backgroundImageUrl: undefined,
   temperatureUnit: { unit: 'CELSIUS' },
   location: {
     coordinates: {

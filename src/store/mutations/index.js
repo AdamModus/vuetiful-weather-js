@@ -1,3 +1,4 @@
+import backgroundImageMutations from './BackgroundImageMutations';
 import forecastMutation from './ForecastMutations';
 import locationMutations from './LocationMutations';
 import temperatureUnitMutations from './TemperatureUnitMutations';
@@ -8,4 +9,5 @@ export default {
   ...temperatureUnitMutations,
   ...locationMutations,
   ...forecastMutation,
+  ...backgroundImageMutations,
 };

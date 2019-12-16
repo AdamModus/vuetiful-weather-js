@@ -33,27 +33,52 @@
     <!-- End of mobile side menu -->
 
     <!-- Start of actual app content -->
-    <v-content>
+    <v-content class="main-content" v-bind:style="bgStyle">
       <router-view />
     </v-content>
     <!-- End of actual app content -->
   </v-app>
 </template>
 
+<style scoped>
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-image: var(--bg-image);
+  filter: blur(8px);
+}
+</style>
+
 <script>
 import Vue from 'vue';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState, mapGetters } from 'vuex';
+import store from './store/index';
 
 export default {
   name: 'App',
   computed: {
     ...mapState({
       isDarkTheme: state => state.theme.isDark,
+      currentWeather: state => state.forecast.currentWeatherForecast,
+    }),
+    ...mapGetters({
+      bgStyle: 'backgroundStyle',
     }),
   },
   watch: {
     isDarkTheme() {
       this.$vuetify.theme.dark = this.isDarkTheme;
+    },
+    currentWeather() {
+      store.dispatch('fetchBackgroundImage', this.currentWeather.description);
     },
   },
   methods: {
