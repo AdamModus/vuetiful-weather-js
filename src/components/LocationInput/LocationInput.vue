@@ -1,6 +1,10 @@
 <template>
   <v-form @submit.prevent="submit">
-    <v-text-field label="Where are you?" v-model="inputCity"></v-text-field>
+    <v-text-field
+      :rules="rules"
+      label="Where are you?"
+      v-model="inputCity"
+    ></v-text-field>
   </v-form>
 </template>
 
@@ -19,7 +23,14 @@ export default {
   computed: {
     ...mapState({
       storeCity: state => state.location.storeCity,
+      locationValid: state => state.location.valid,
     }),
+    rules() {
+      if (this.locationValid) {
+        return [];
+      }
+      return ['This location was not found'];
+    },
   },
 
   watch: {

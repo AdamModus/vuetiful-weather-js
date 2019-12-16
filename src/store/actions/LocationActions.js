@@ -1,4 +1,4 @@
-import store from '..';
+import store from '@/store';
 import MUTATION_TYPES from '../mutation-types';
 
 export default {
@@ -14,5 +14,8 @@ export default {
       return;
     }
     commit(MUTATION_TYPES.SET_COUNTRY_CODE, countryCode);
+  },
+  setLocationValidity({ commit }, validity) {
+    commit(MUTATION_TYPES.SET_LOCATION_VALIDITY, validity);
   },
 };

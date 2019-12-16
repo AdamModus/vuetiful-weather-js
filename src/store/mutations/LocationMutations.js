@@ -7,4 +7,7 @@ export default {
   [MUTATION_TYPES.SET_COUNTRY_CODE](state, countryCode) {
     state.location.countryCode = countryCode;
   },
+  [MUTATION_TYPES.SET_LOCATION_VALIDITY](state, validity) {
+    state.location.valid = validity;
+  },
 };

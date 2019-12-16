@@ -5,6 +5,7 @@ export default {
   backgroundImageUrl: undefined,
   temperatureUnit: { unit: 'CELSIUS' },
   location: {
+    valid: true,
     coordinates: {
       latitude: undefined,
       longitude: undefined,
