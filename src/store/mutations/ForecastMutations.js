@@ -7,7 +7,4 @@ export default {
   [MUTATION_TYPES.SET_SIXTEEN_DAY_WEATHER_FORECAST](state, forecast) {
     state.forecast.sixteenDayWeatherForecast = forecast;
   },
-  [MUTATION_TYPES.SET_FIVE_DAY_HOURLY_WEATHER_FORECAST](state, forecast) {
-    state.forecast.fiveDayHourlyForecast = forecast;
-  },
 };

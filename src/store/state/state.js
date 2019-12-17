@@ -16,6 +16,5 @@ export default {
   forecast: {
     currentWeatherForecast: undefined,
     sixteenDayWeatherForecast: undefined,
-    fiveDayHourlyForecast: undefined,
   },
 };
