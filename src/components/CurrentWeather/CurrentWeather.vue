@@ -4,7 +4,10 @@
       <v-col cols="6">
         <v-card class="fill-height">
           <v-col class="text-center" cols="12">
-            It is {{ this.temperature }}º {{ this.tempUnit.charAt(0) }}
+            It is {{ this.temperature }}° {{ this.tempUnit.charAt(0) }}
+            <br />
+            and it feels like {{ this.feelsTemperature }}°
+            {{ this.tempUnit.charAt(0) }}
           </v-col>
           <v-col
             class="text-center weather-icon"
@@ -22,8 +25,17 @@
           <v-card-text>
             <p>Humidity: {{ this.currentWeather.humidity }}</p>
             <p>Pressure: {{ this.currentWeather.pressure }} mbar</p>
-            <p>Wind speed: {{ this.currentWeather.windSpeed }} m/s</p>
             <p>Cloud cover: {{ this.currentWeather.cloudiness }}%</p>
+            <p>Wind speed: {{ this.windSpeedKmph }} km/h</p>
+            <p>
+              Wind direction: {{ this.currentWeather.windDirection }}° ({{
+                this.cardinalDirection
+              }})
+              <v-icon
+                :style="getWindRotationCSS(this.currentWeather.windDirection)"
+                >mdi-arrow-up</v-icon
+              >
+            </p>
           </v-card-text>
         </v-card>
       </v-col>
@@ -45,7 +57,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
-import services from './../../services/index';
+import services from '@/services/index';
 
 export default {
   name: 'CurrentWeather',
@@ -56,11 +68,33 @@ export default {
       tempUnit: state => state.temperatureUnit.unit,
       city: state => state.location.city,
     }),
-    ...mapGetters({
-      temperature: 'convertedCurrentTemperature',
-    }),
     weatherIconId() {
       return services.mapOWMCodeToIconClass(this.currentWeather.iconId);
+    },
+    cardinalDirection() {
+      return services.getWindCardinalDirection(
+        this.currentWeather.windDirection
+      );
+    },
+    windSpeedKmph() {
+      return services.mpsTokmph(this.currentWeather.windSpeed);
+    },
+    temperature() {
+      return services.convertTemperature(
+        this.tempUnit,
+        this.currentWeather.temperature
+      );
+    },
+    feelsTemperature() {
+      return services.convertTemperature(
+        this.tempUnit,
+        this.currentWeather.feelsTemperature
+      );
+    },
+  },
+  methods: {
+    getWindRotationCSS(degrees) {
+      return `transform: rotate(${degrees}deg);`;
     },
   },
 };

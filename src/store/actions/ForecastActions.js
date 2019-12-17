@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
 import store from '@/store';
+import { format } from 'date-fns';
 import MUTATION_TYPES from '../mutation-types';
 
 const currentWeatherUrlBase = 'http://api.openweathermap.org/data/2.5/weather';
@@ -33,11 +33,13 @@ function extractCurrentForecastFromResponse(response) {
     description: response.weather[0].description,
     iconId: response.weather[0].id,
     temperature: response.main.temp,
+    feelsTemperature: response.main.feels_like,
     minTemperature: response.main.temp_min,
     maxTemperature: response.main.temp_max,
     humidity: response.main.humidity,
     pressure: response.main.pressure,
     windSpeed: response.wind.speed,
+    windDirection: response.wind.deg,
     cloudiness: response.clouds.all,
   };
   return forecast;
