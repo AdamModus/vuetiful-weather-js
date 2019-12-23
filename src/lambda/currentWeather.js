@@ -13,12 +13,16 @@ function buildCurrentWeatherForecastUrl(
 }
 
 export function handler(event, context, callback) {
-  fetch(
-    buildCurrentWeatherForecastUrl(
-      event.queryStringParameters.city,
-      event.queryStringParameters.countryCode
-    )
-  )
+  const { city, countryCode } = event.queryStringParameters;
+
+  if (city === undefined || city === '') {
+    callback(null, {
+      statusCode: 400,
+      body: 'No city in query parameters!!',
+    });
+    return;
+  }
+  fetch(buildCurrentWeatherForecastUrl(city, countryCode))
     .then(response => response.json())
     .then(data => {
       callback(null, {
