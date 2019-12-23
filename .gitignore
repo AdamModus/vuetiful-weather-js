@@ -27,4 +27,4 @@ yarn-error.log*
 *.sw?
 
 # Netlify lambda
-lambda
+/lambda
