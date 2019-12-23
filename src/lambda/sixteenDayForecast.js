@@ -1,12 +1,13 @@
 import fetch from 'node-fetch';
 
-const urlBase = 'http://api.openweathermap.org/data/2.5/weather';
+const urlBase = 'http://api.openweathermap.org/data/2.5/forecast/daily';
 const apiKey = '0316ba5cb8868612facee65c17e8f4a0';
 
 function buildRequestUrl(city, countryCode = undefined) {
   const countryCodeFragment =
     typeof countryCode === 'string' ? ',' + countryCode : '';
-  return `${urlBase}?appid=${apiKey}&q=${city}${countryCodeFragment}`;
+  const numberOfDaysFragment = 'cnt=16';
+  return `${urlBase}?appid=${apiKey}&q=${city}${countryCodeFragment}&${numberOfDaysFragment}`;
 }
 
 export function handler(event, context, callback) {

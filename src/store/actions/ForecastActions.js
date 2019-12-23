@@ -2,23 +2,14 @@ import store from '@/store';
 import { format } from 'date-fns';
 import MUTATION_TYPES from '../mutation-types';
 
-const currentWeatherUrlBase = 'http://api.openweathermap.org/data/2.5/weather';
-const sixteenDaysForecastUrlBase =
-  'http://api.openweathermap.org/data/2.5/forecast/daily';
-const apiKey = '0316ba5cb8868612facee65c17e8f4a0';
+const lambdaFunctionUrlFragment = '.netlify/functions/';
 const dateFormat = 'iii do';
 
-function buildCurrentWeatherForecastUrl(city, countryCode = undefined) {
-  const countryCodeFragment =
-    typeof countryCode === 'string' ? ',' + countryCode : '';
-  return `${currentWeatherUrlBase}?appid=${apiKey}&q=${city}${countryCodeFragment}`;
-}
-
-function buildSixteenDaysForecastURL(city, countryCode = undefined) {
-  const countryCodeFragment =
-    typeof countryCode === 'string' ? ',' + countryCode : '';
-  const numberOfDaysFragment = 'cnt=16';
-  return `${sixteenDaysForecastUrlBase}?appid=${apiKey}&q=${city}${countryCodeFragment}&${numberOfDaysFragment}`;
+function buildCountryCodeUrlFragment(countryCode) {
+  if (typeof countryCode !== 'string' || countryCode === '') {
+    return '';
+  }
+  return '&countryCode=' + countryCode;
 }
 
 function extractCurrentForecastFromResponse(response) {
@@ -65,24 +56,36 @@ function extractSixteenDayForecastFromResponse(response) {
 
 export default {
   fetchCurrentForecast({ commit }, city, countryCode = undefined) {
-    fetch(buildCurrentWeatherForecastUrl(city, countryCode))
+    if (city === undefined || city === '') {
+      return;
+    }
+    const countryCodeFragment = buildCountryCodeUrlFragment(countryCode);
+    const reqUrl = `${window.location.href}${lambdaFunctionUrlFragment}currentWeather?city=${city}${countryCodeFragment}`;
+
+    fetch(reqUrl)
       .then(response => response.json())
-      .then(result => {
-        if (result.cod === '404' || result.cod === '400') {
+      .then(data => {
+        if (data.cod === '404' || data.cod === '400') {
           store.dispatch('setLocationValidity', false);
           return;
         }
 
         store.dispatch('setLocationValidity', true);
-        store.dispatch('setCountryCode', result.sys.country);
-        const forecast = extractCurrentForecastFromResponse(result);
+        store.dispatch('setCountryCode', data.sys.country);
+        const forecast = extractCurrentForecastFromResponse(data);
         commit(MUTATION_TYPES.SET_CURRENT_WEATHER_FORECAST, forecast);
         store.dispatch('fetchSixteenDaysForecast', city, countryCode);
       });
   },
 
   fetchSixteenDaysForecast({ commit }, city, countryCode = undefined) {
-    fetch(buildSixteenDaysForecastURL(city, countryCode))
+    if (city === undefined || city === '') {
+      return;
+    }
+    const countryCodeFragment = buildCountryCodeUrlFragment(countryCode);
+    const reqUrl = `${window.location.href}${lambdaFunctionUrlFragment}sixteenDayForecast?city=${city}${countryCodeFragment}`;
+
+    fetch(reqUrl)
       .then(response => response.json())
       .then(result => {
         const forecast = extractSixteenDayForecastFromResponse(result);
