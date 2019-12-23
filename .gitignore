@@ -1,7 +1,9 @@
+# Environment
 .DS_Store
 node_modules
 /dist
 
+# coverage reports
 /tests/e2e/videos/
 /tests/e2e/screenshots/
 coverage
@@ -23,3 +25,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Netlify lambda
+lambda
