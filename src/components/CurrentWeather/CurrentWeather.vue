@@ -56,7 +56,7 @@
 </style>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState } from 'vuex';
 import services from '@/services/index';
 
 export default {

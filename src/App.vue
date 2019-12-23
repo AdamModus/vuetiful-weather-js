@@ -58,7 +58,6 @@
 </style>
 
 <script>
-import Vue from 'vue';
 import { mapActions, mapState, mapGetters } from 'vuex';
 import store from '@/store/index';
 
