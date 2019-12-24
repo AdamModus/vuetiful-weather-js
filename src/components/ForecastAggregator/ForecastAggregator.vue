@@ -15,6 +15,12 @@
       >
         <v-card>
           <v-card-text>{{ day }}</v-card-text>
+          <v-card-text
+            ><p>Humidity: {{ day.humidity }}</p>
+            <p>Pressure: {{ day.pressure }} mbar</p>
+            <p>Cloud cover: {{ day.cloudiness }}%</p>
+            <p>Wind speed: {{ getWindSpeedKmph(day.windSpeed) }} km/h</p>
+          </v-card-text>
         </v-card>
       </v-tab-item>
     </v-tabs-items>
@@ -41,6 +47,9 @@ export default {
   methods: {
     getClass(icon) {
       return services.mapOWMCodeToIconClass(icon);
+    },
+    getWindSpeedKmph(windSpeed) {
+      return services.mpsTokmph(windSpeed);
     },
   },
 };

@@ -33,4 +33,7 @@ export default {
   mpsTokmph(mpsVal) {
     return Math.round(mpsVal * 3.6);
   },
+  getWindRotationCSS(degrees) {
+    return `transform: rotate(${degrees}deg);`;
+  },
 };

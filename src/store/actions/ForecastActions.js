@@ -40,6 +40,7 @@ function extractSixteenDayForecastFromResponse(response) {
       dateString,
       maxTemperature: iDay.temp.max,
       minTemperature: iDay.temp.min,
+      feelsTemperature: iDay.feels_like.day,
       pressure: iDay.pressure,
       humidity: iDay.humidity,
       windSpeed: iDay.speed,

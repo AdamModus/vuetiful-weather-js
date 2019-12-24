@@ -31,10 +31,7 @@
               Wind direction: {{ this.currentWeather.windDirection }}° ({{
                 this.cardinalDirection
               }})
-              <v-icon
-                :style="getWindRotationCSS(this.currentWeather.windDirection)"
-                >mdi-arrow-up</v-icon
-              >
+              <v-icon :style="windRotationCSS">mdi-arrow-up</v-icon>
             </p>
           </v-card-text>
         </v-card>
@@ -91,10 +88,8 @@ export default {
         this.currentWeather.feelsTemperature
       );
     },
-  },
-  methods: {
-    getWindRotationCSS(degrees) {
-      return `transform: rotate(${degrees}deg);`;
+    windRotationCSS() {
+      return services.getWindRotationCSS(this.currentWeather.windDirection);
     },
   },
 };
