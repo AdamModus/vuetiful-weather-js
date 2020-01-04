@@ -25,7 +25,7 @@
           <v-card-text>
             <p>Humidity: {{ this.currentWeather.humidity }}</p>
             <p>Pressure: {{ this.currentWeather.pressure }} mbar</p>
-            <p>Cloud cover: {{ this.currentWeather.cloudiness }}%</p>
+            <p>Cloud coverage: {{ this.currentWeather.cloudiness }}%</p>
             <p>Wind speed: {{ this.windSpeedKmph }} km/h</p>
             <p>
               Wind direction: {{ this.currentWeather.windDirection }}° ({{
@@ -45,7 +45,7 @@
   height: 100%;
 }
 .weather-icon {
-  font-size: 10vh;
+  font-size: 5rem;
 }
 .weather-description {
   text-transform: capitalize;

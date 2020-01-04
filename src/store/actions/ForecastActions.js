@@ -31,7 +31,7 @@ function extractCurrentForecastFromResponse(response) {
 
 function extractSixteenDayForecastFromResponse(response) {
   const forecast = [];
-  for (let i = 0; i < response.list.length; i++) {
+  for (let i = 1; i < response.list.length; i++) {
     const iDay = response.list[i];
     const date = new Date(iDay.dt * 1000);
     const dateString = format(date, dateFormat);
@@ -40,10 +40,12 @@ function extractSixteenDayForecastFromResponse(response) {
       dateString,
       maxTemperature: iDay.temp.max,
       minTemperature: iDay.temp.min,
+      avgTemperature: (iDay.temp.max + iDay.temp.min) / 2,
       feelsTemperature: iDay.feels_like.day,
       pressure: iDay.pressure,
       humidity: iDay.humidity,
       windSpeed: iDay.speed,
+      windDirection: iDay.deg,
       cloudiness: iDay.clouds,
       rain: iDay.rain,
       snow: iDay.snow,
