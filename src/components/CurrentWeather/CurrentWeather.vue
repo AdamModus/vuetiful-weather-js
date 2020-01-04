@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="currentWeather">
     <v-row>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-card class="fill-height">
           <v-col class="text-center" cols="12">
             It is {{ this.temperature }}° {{ this.tempUnit.charAt(0) }}
@@ -20,7 +20,7 @@
           </v-col>
         </v-card>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12" sm="6">
         <v-card class="fill-height d-flex align-center text-center">
           <v-card-text>
             <p>Humidity: {{ this.currentWeather.humidity }}</p>
