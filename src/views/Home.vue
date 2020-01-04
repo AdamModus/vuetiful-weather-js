@@ -19,11 +19,11 @@
           </v-row>
         </v-card>
       </v-col>
-      <v-col cols="12" md="6">
+      <v-col v-if="hasForecast" cols="12" md="6">
         <CurrentWeather></CurrentWeather>
       </v-col>
     </v-row>
-    <v-row>
+    <v-row v-if="hasForecast">
       <v-col>
         <ForecastAggregator></ForecastAggregator>
       </v-col>
@@ -38,6 +38,7 @@ import UnitPicker from '@/components/UnitPicker/UnitPicker';
 import LocationInput from '@/components/LocationInput/LocationInput';
 import ForecastAggregator from '@/components/ForecastAggregator/ForecastAggregator';
 import CurrentWeather from '@/components/CurrentWeather/CurrentWeather';
+import { mapState } from 'vuex';
 
 export default {
   name: 'home',
@@ -46,6 +47,11 @@ export default {
     UnitPicker,
     CurrentWeather,
     ForecastAggregator,
+  },
+  computed: {
+    ...mapState({
+      hasForecast: state => state.forecast.currentWeatherForecast !== undefined,
+    }),
   },
 };
 </script>

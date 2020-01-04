@@ -15,8 +15,8 @@
       >
         <v-card>
           <v-card-text>{{ day }}</v-card-text>
-          <v-card-text
-            ><p>Humidity: {{ day.humidity }}</p>
+          <v-card-text>
+            <p>Humidity: {{ day.humidity }}</p>
             <p>Pressure: {{ day.pressure }} mbar</p>
             <p>Cloud cover: {{ day.cloudiness }}%</p>
             <p>Wind speed: {{ getWindSpeedKmph(day.windSpeed) }} km/h</p>
