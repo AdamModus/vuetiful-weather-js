@@ -2,27 +2,37 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import DayForecast from './DayForecast.vue';
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
 describe('CurrentWeather.vue', () => {
+  let localVue;
   let store;
   let state = {
     forecast: {
       currentWeatherForecast: undefined,
     },
+    temperatureUnit: { unit: 'Celsius' },
   };
   let mutations = {};
   let actions = {};
   let getters = {};
   let modules = {};
 
+  beforeAll(() => {
+    localVue = createLocalVue();
+    localVue.use(Vuex);
+  });
+
   beforeEach(() => {
     store = new Vuex.Store({ state, mutations, actions, getters, modules });
   });
 
   it('renders props.msg when passed', () => {
-    const wrapper = shallowMount(DayForecast, { store, localVue });
+    const wrapper = shallowMount(DayForecast, {
+      store,
+      localVue,
+      propsData: {
+        forecast: { iconId: '801' },
+      },
+    });
     expect(wrapper).toBeTruthy();
   });
 });

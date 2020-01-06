@@ -7,5 +7,6 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['lcov', 'text-summary'],
+  setupFiles: ['<rootDir>/tests/unit/jest.setup.js'],
   testMatch: ['<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)'],
 };
