@@ -38,7 +38,8 @@ import UnitPicker from '@/components/UnitPicker/UnitPicker';
 import LocationInput from '@/components/LocationInput/LocationInput';
 import ForecastAggregator from '@/components/ForecastAggregator/ForecastAggregator';
 import CurrentWeather from '@/components/CurrentWeather/CurrentWeather';
-import { mapState } from 'vuex';
+import router from '@/router';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   name: 'home',
@@ -52,6 +53,20 @@ export default {
     ...mapState({
       hasForecast: state => state.forecast.currentWeatherForecast !== undefined,
     }),
+  },
+
+  methods: {
+    ...mapActions(['setCity']),
+  },
+
+  mounted: function() {
+    this.$nextTick(function() {
+      // Code that will run only after the entire view has been rendered
+      if (Object.keys(router.currentRoute.params).length !== 0) {
+        const bookmarkedCity = router.currentRoute.params['id'];
+        this.setCity(bookmarkedCity);
+      }
+    });
   },
 };
 </script>

@@ -72,6 +72,9 @@ export default {
       bgStyle: 'backgroundStyle',
     }),
   },
+  data: () => ({
+    drawer: false, // Hide mobile side menu by default
+  }),
   watch: {
     isDarkTheme() {
       this.$vuetify.theme.dark = this.isDarkTheme;
@@ -86,8 +89,5 @@ export default {
       this.switchTheme(this.isDarkTheme);
     },
   },
-  data: () => ({
-    drawer: false, // Hide mobile side menu by default
-  }),
 };
 </script>

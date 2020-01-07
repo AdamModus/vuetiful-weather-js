@@ -1,8 +1,9 @@
+import router from '@/router';
 import store from '@/store';
 import { format } from 'date-fns';
 import MUTATION_TYPES from '../mutation-types';
 
-const lambdaFunctionUrlFragment = '.netlify/functions/';
+const lambdaFunctionUrlFragment = '/.netlify/functions/';
 const dateFormat = 'iii do';
 
 function buildCountryCodeUrlFragment(countryCode) {
@@ -63,7 +64,8 @@ export default {
       return;
     }
     const countryCodeFragment = buildCountryCodeUrlFragment(countryCode);
-    const reqUrl = `${window.location.href}${lambdaFunctionUrlFragment}currentWeather?city=${city}${countryCodeFragment}`;
+    const base = window.location.href.replace(router.currentRoute.fullPath, '');
+    const reqUrl = `${base}${lambdaFunctionUrlFragment}currentWeather?city=${city}${countryCodeFragment}`;
 
     fetch(reqUrl)
       .then(response => response.json())
@@ -86,7 +88,8 @@ export default {
       return;
     }
     const countryCodeFragment = buildCountryCodeUrlFragment(countryCode);
-    const reqUrl = `${window.location.href}${lambdaFunctionUrlFragment}sixteenDayForecast?city=${city}${countryCodeFragment}`;
+    const base = window.location.href.replace(router.currentRoute.fullPath, '');
+    const reqUrl = `${base}${lambdaFunctionUrlFragment}sixteenDayForecast?city=${city}${countryCodeFragment}`;
 
     fetch(reqUrl)
       .then(response => response.json())
