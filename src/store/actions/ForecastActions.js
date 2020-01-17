@@ -3,8 +3,19 @@ import store from '@/store';
 import { format } from 'date-fns';
 import MUTATION_TYPES from '../mutation-types';
 
-const lambdaFunctionUrlFragment = '/.netlify/functions/';
+const lambdaFunctionUrlFragment = '.netlify/functions/';
 const dateFormat = 'iii do';
+
+function getBaseUrl() {
+  const routerFullPath = router.currentRoute.fullPath;
+  let base = window.location.href;
+
+  if (routerFullPath !== '/') {
+    base = base.replace(router.currentRoute.fullPath, '/');
+  }
+
+  return base;
+}
 
 function buildCountryCodeUrlFragment(countryCode) {
   if (typeof countryCode !== 'string' || countryCode === '') {
@@ -64,7 +75,7 @@ export default {
       return;
     }
     const countryCodeFragment = buildCountryCodeUrlFragment(countryCode);
-    const base = window.location.href.replace(router.currentRoute.fullPath, '');
+    const base = getBaseUrl();
     const reqUrl = `${base}${lambdaFunctionUrlFragment}currentWeather?city=${city}${countryCodeFragment}`;
 
     fetch(reqUrl)
@@ -88,7 +99,7 @@ export default {
       return;
     }
     const countryCodeFragment = buildCountryCodeUrlFragment(countryCode);
-    const base = window.location.href.replace(router.currentRoute.fullPath, '');
+    const base = getBaseUrl();
     const reqUrl = `${base}${lambdaFunctionUrlFragment}sixteenDayForecast?city=${city}${countryCodeFragment}`;
 
     fetch(reqUrl)
