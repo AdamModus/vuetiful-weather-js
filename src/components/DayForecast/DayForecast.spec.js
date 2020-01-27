@@ -25,14 +25,14 @@ describe('CurrentWeather.vue', () => {
     store = new Vuex.Store({ state, mutations, actions, getters, modules });
   });
 
-  it('renders props.msg when passed', () => {
-    const wrapper = shallowMount(DayForecast, {
+  it('renders props', () => {
+    const component = shallowMount(DayForecast, {
       store,
       localVue,
       propsData: {
         forecast: { iconId: '801' },
       },
     });
-    expect(wrapper).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 });
