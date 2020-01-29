@@ -35,7 +35,7 @@ describe('LocationInput.vue', () => {
     store = new Vuex.Store({ state, mutations, actions, getters, modules });
   });
 
-  test('renders properly with right default props', async () => {
+  test('renders properly with right default props', () => {
     // Setup
     const component = shallowMount(LocationInput, { store, localVue });
 
@@ -70,7 +70,7 @@ describe('LocationInput.vue', () => {
     expect(component.vm.inputCity).toEqual(mockedCity);
   });
 
-  test('computed prop rules is correctly set', async () => {
+  test('computed prop rules is correctly set', () => {
     // Setup
     store.state.location.valid = true;
     const component = shallowMount(LocationInput, { store, localVue });
