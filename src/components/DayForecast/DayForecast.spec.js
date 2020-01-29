@@ -25,7 +25,7 @@ describe('CurrentWeather.vue', () => {
     store = new Vuex.Store({ state, mutations, actions, getters, modules });
   });
 
-  it('renders props', () => {
+  test('renders props', () => {
     const component = shallowMount(DayForecast, {
       store,
       localVue,

@@ -68,7 +68,8 @@ describe('CurrentWeather.vue', () => {
     store = new Vuex.Store({ state, mutations, actions, getters, modules });
   });
 
-  it('Does not render content when currentWeatherForecast in Vuex is not set', () => {
+  test('Does not render content when currentWeatherForecast in Vuex is not set', () => {
+    // Setup
     const emptyState = {
       forecast: {
         currentWeatherForecast: undefined,
@@ -82,12 +83,16 @@ describe('CurrentWeather.vue', () => {
       modules,
     });
     const component = shallowMount(CurrentWeather, { store, localVue });
+
+    // Test
     expect(component.find('v-row').exists()).toBeFalsy();
   });
 
-  it('Computes properties properly using imported services', () => {
+  test('Computes properties properly using imported services', () => {
+    // Setup
     const component = shallowMount(CurrentWeather, { store, localVue });
 
+    // Test
     expect(component.vm.weatherIconId).toEqual(
       mockedServiceReturns.mapOWMCodeToIconClass
     );
