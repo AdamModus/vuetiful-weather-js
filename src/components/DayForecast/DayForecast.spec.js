@@ -2,7 +2,7 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import DayForecast from './DayForecast.vue';
 
-describe('CurrentWeather.vue', () => {
+describe('DayForecast.vue', () => {
   let localVue;
   let store;
   let state = {
