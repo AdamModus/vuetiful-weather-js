@@ -12,6 +12,7 @@ describe('LocationInput.vue', () => {
   let actions;
   let getters;
   let modules;
+  let component;
 
   const mockedCity = 'city of Mocks';
   const defaultRules = ['This location was not found'];
@@ -33,50 +34,41 @@ describe('LocationInput.vue', () => {
       },
     };
     store = new Vuex.Store({ state, mutations, actions, getters, modules });
+    component = shallowMount(LocationInput, { store, localVue });
+    component.vm.inputCity = mockedCity;
   });
 
   test('renders properly with right default props', () => {
-    // Setup
-    const component = shallowMount(LocationInput, { store, localVue });
-
-    // Test
+    // Assert
     expect(component).toBeTruthy();
     expect(component.vm.rules).toEqual(defaultRules);
   });
 
   test('calls setCity after submit is called', async () => {
-    // Setup
-    const component = shallowMount(LocationInput, { store, localVue });
-    component.vm.inputCity = mockedCity;
-
     // Execute
     component.vm.submit();
     await component.vm.$nextTick();
 
-    // Test
+    // Assert
     expect(actions.setCity).toHaveBeenCalled();
   });
 
   test('watch sets inputCity', async () => {
-    // Setup
-    const component = shallowMount(LocationInput, { store, localVue });
-    component.vm.inputCity = mockedCity;
-
     // Execute
     component.vm.submit();
     await component.vm.$nextTick();
 
-    // Test
+    // Assert
     expect(component.vm.inputCity).toEqual(mockedCity);
   });
 
   test('computed prop rules is correctly set', () => {
     // Setup
     store.state.location.valid = true;
-    const component = shallowMount(LocationInput, { store, localVue });
+    const myComponent = shallowMount(LocationInput, { store, localVue });
 
-    // Test
-    expect(component.vm.locationValid).toBeTruthy();
-    expect(component.vm.rules).toEqual(validRules);
+    // Assert
+    expect(myComponent.vm.locationValid).toBeTruthy();
+    expect(myComponent.vm.rules).toEqual(validRules);
   });
 });
