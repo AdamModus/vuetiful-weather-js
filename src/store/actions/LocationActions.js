@@ -13,7 +13,7 @@ export default {
     if (store.state.location.countryCode === countryCode.toLowerCase()) {
       return;
     }
-    commit(MUTATION_TYPES.SET_COUNTRY_CODE, countryCode);
+    commit(MUTATION_TYPES.SET_COUNTRY_CODE, countryCode.toLowerCase());
   },
   setLocationValidity({ commit }, validity) {
     commit(MUTATION_TYPES.SET_LOCATION_VALIDITY, validity);
