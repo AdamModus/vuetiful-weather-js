@@ -91,6 +91,9 @@ export default {
         const forecast = extractCurrentForecastFromResponse(data);
         commit(MUTATION_TYPES.SET_CURRENT_WEATHER_FORECAST, forecast);
         store.dispatch('fetchSixteenDaysForecast', city, countryCode);
+      })
+      .catch(() => {
+        console.log('Well, fetching this failed... ' + reqUrl);
       });
   },
 
