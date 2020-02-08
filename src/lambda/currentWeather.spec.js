@@ -1,4 +1,4 @@
-import handler from './currentWeather';
+import * as handler from './currentWeather';
 
 describe('Current Weather Lambda', () => {
   handler.lol = 'p';
