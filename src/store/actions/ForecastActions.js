@@ -110,6 +110,9 @@ export default {
       .then(result => {
         const forecast = extractSixteenDayForecastFromResponse(result);
         commit(MUTATION_TYPES.SET_SIXTEEN_DAY_WEATHER_FORECAST, forecast);
+      })
+      .catch(() => {
+        console.log('Well, fetching this failed... ' + reqUrl);
       });
   },
 };

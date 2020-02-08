@@ -52,6 +52,37 @@ describe('ForecastActions', () => {
 
   describe('fetchCurrentForecast', () => {
     describe('Fail scenarios', () => {
+      test('does not dispatch anything if no city is provided', () => {
+        // Execute
+        const result = forecastActions.fetchCurrentForecast({ commit });
+
+        // Assert
+        expect(mockedDispatch).not.toHaveBeenCalled();
+        expect(result).toBeUndefined();
+      });
+
+      test('does not dispatch anything if fetch fails', async done => {
+        // Setup
+        let resolveFetchedPromise;
+        const fetchedPromise = new Promise(resolve => {
+          resolveFetchedPromise = resolve;
+        });
+        global.fetch = jest.fn().mockImplementation(() => {
+          resolveFetchedPromise();
+          return Promise.reject();
+        });
+        const city = 'Kebabs';
+        const countryCode = 'pt';
+
+        // Execute
+        forecastActions.fetchCurrentForecast({ commit }, city, countryCode);
+        await fetchedPromise;
+
+        // Assert
+        expect(mockedDispatch).not.toHaveBeenCalled();
+        done();
+      });
+
       test('dispatches location validity as false if response code is 400', async done => {
         // Setup
         const city = 'Kebabs';
@@ -86,37 +117,6 @@ describe('ForecastActions', () => {
           false
         );
         done();
-      });
-
-      test('does not dispatch anything if fetch fails', async done => {
-        // Setup
-        let resolveFetchedPromise;
-        const fetchedPromise = new Promise(resolve => {
-          resolveFetchedPromise = resolve;
-        });
-        global.fetch = jest.fn().mockImplementation(() => {
-          resolveFetchedPromise();
-          return Promise.reject();
-        });
-        const city = 'Kebabs';
-        const countryCode = 'pt';
-
-        // Execute
-        forecastActions.fetchCurrentForecast({ commit }, city, countryCode);
-        await fetchedPromise;
-
-        // Assert
-        expect(mockedDispatch).not.toHaveBeenCalled();
-        done();
-      });
-
-      test('does not dispatch anything if no city is provided', () => {
-        // Execute
-        const result = forecastActions.fetchCurrentForecast({ commit });
-
-        // Assert
-        expect(mockedDispatch).not.toHaveBeenCalled();
-        expect(result).toBeUndefined();
       });
     });
 
@@ -155,7 +155,7 @@ describe('ForecastActions', () => {
         done();
       });
 
-      test('commits SET_CURRENT_WEATHER_FORECAST with extracted data from response', async done => {
+      test('commits SET_CURRENT_WEATHER_FORECAST with extracted forecast from response', async done => {
         // Setup
         const city = 'Kebabs';
         const countryCode = 'pt';
@@ -205,5 +205,105 @@ describe('ForecastActions', () => {
     });
   });
 
-  describe('fetchSixteenDaysForecast', () => {});
+  describe('fetchSixteenDaysForecast', () => {
+    describe('Fail scenarios', () => {
+      test('does not dispatch anything if no city is provided', () => {
+        // Execute
+        const result = forecastActions.fetchSixteenDaysForecast({ commit });
+
+        // Assert
+        expect(mockedDispatch).not.toHaveBeenCalled();
+        expect(result).toBeUndefined();
+      });
+
+      test('does not dispatch anything if fetch fails', async done => {
+        // Setup
+        let resolveFetchedPromise;
+        const fetchedPromise = new Promise(resolve => {
+          resolveFetchedPromise = resolve;
+        });
+        global.fetch = jest.fn().mockImplementation(() => {
+          resolveFetchedPromise();
+          return Promise.reject();
+        });
+        const city = 'Kebabs';
+        const countryCode = 'pt';
+
+        // Execute
+        forecastActions.fetchSixteenDaysForecast({ commit }, city, countryCode);
+        await fetchedPromise;
+
+        // Assert
+        expect(mockedDispatch).not.toHaveBeenCalled();
+        done();
+      });
+    });
+
+    describe('Successful responses', () => {
+      test('commits SET_SIXTEEN_DAY_WEATHER_FORECAST with extracted forecast from response', async done => {
+        let resolveCommitCalledPromise;
+        const commitCalledPromise = new Promise(resolve => {
+          resolveCommitCalledPromise = resolve;
+        });
+
+        // Setup
+        const city = 'Kebabs';
+        const countryCode = 'pt';
+        mockSuccessResponse = {
+          cod: '200',
+          sys: { country: 'Portugal' },
+          list: [
+            undefined,
+            {
+              dt: 0,
+              temp: { max: 0, min: 0 },
+              feels_like: { day: 0 },
+              pressure: 0,
+              humidity: 0,
+              speed: 0,
+              deg: 0,
+              clouds: 0,
+              rain: 0,
+              snow: 0,
+              weather: [{ id: 0, description: 0 }],
+            },
+          ],
+        };
+
+        const expectedResult = [
+          {
+            date: new Date(0),
+            dateString: 'Thu 1st',
+            description: 0,
+            iconId: 0,
+            avgTemperature: 0,
+            feelsTemperature: 0,
+            minTemperature: 0,
+            maxTemperature: 0,
+            humidity: 0,
+            pressure: 0,
+            windSpeed: 0,
+            windDirection: 0,
+            cloudiness: 0,
+            rain: 0,
+            snow: 0,
+          },
+        ];
+
+        // Execute
+        commit = jest
+          .fn()
+          .mockImplementation(() => resolveCommitCalledPromise());
+        forecastActions.fetchSixteenDaysForecast({ commit }, city, countryCode);
+        await commitCalledPromise;
+
+        // Assert
+        expect(commit).toHaveBeenCalledWith(
+          MUTATION_TYPES.SET_SIXTEEN_DAY_WEATHER_FORECAST,
+          expectedResult
+        );
+        done();
+      });
+    });
+  });
 });
