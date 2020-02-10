@@ -1,6 +1,5 @@
 import MUTATION_TYPES from '../mutation-types';
 import forecastActions from './ForecastActions';
-// import router from '@/router';
 
 jest.mock('@/store', () => {
   return {
@@ -289,11 +288,11 @@ describe('ForecastActions', () => {
             snow: 0,
           },
         ];
-
-        // Execute
         commit = jest
           .fn()
           .mockImplementation(() => resolveCommitCalledPromise());
+
+        // Execute
         forecastActions.fetchSixteenDaysForecast({ commit }, city, countryCode);
         await commitCalledPromise;
 

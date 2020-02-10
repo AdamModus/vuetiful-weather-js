@@ -1,6 +1,6 @@
-import { handler } from './currentWeather';
+import { handler } from './sixteenDayForecast';
 
-describe('Current Weather Lambda', () => {
+describe('Sixteen day Forecast Lambda', () => {
   let callback;
   let eventParam;
   let mockSuccessResponse = { cod: '404', message: 'city not found' };
