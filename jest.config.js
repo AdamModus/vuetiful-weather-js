@@ -18,5 +18,7 @@ module.exports = {
     '<rootDir>/src/plugins/vuetify.js',
     // I don't want to test nor cover my router configuration files
     '<rootDir>/src/router',
+    // I don't want to test the register service worker file
+    '<rootDir>/src/registerServiceWorker.js',
   ],
 };
