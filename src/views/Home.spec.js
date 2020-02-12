@@ -45,17 +45,6 @@ describe('Home.vue', () => {
     expect(component).toBeTruthy();
   });
 
-  test('method setCity calls Action setCity', () => {
-    // Setup
-    const param = 'some city';
-
-    // Execute
-    component.vm.setCity(param);
-
-    // Assert
-    expect(actions.setCity).toHaveBeenCalled();
-  });
-
   test('upon mounting calls setCity if router params have an ID', () => {
     // Assert
     expect(actions.setCity).toHaveBeenCalled();

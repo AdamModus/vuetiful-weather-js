@@ -59,7 +59,6 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
-import store from '@/store/index';
 
 export default {
   name: 'App',
@@ -80,11 +79,11 @@ export default {
       this.$vuetify.theme.dark = this.isDarkTheme;
     },
     currentWeather() {
-      store.dispatch('fetchBackgroundImage', this.currentWeather.description);
+      this.fetchBackgroundImage(this.currentWeather.description);
     },
   },
   methods: {
-    ...mapActions(['switchTheme']),
+    ...mapActions(['switchTheme', 'fetchBackgroundImage']),
     themeButtonClicked() {
       this.switchTheme(this.isDarkTheme);
     },

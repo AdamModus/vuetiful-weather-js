@@ -12,6 +12,7 @@ describe('UnitPicker.vue', () => {
   let actions;
   let getters;
   let modules;
+  let component;
 
   beforeEach(() => {
     mutations = {};
@@ -26,12 +27,10 @@ describe('UnitPicker.vue', () => {
       },
     };
     store = new Vuex.Store({ state, mutations, actions, getters, modules });
+    component = shallowMount(UnitPicker, { store, localVue });
   });
 
   test('renders with right default props', () => {
-    // Setup
-    const component = shallowMount(UnitPicker, { store, localVue });
-
     // Test
     expect(component).toBeTruthy();
     expect(component.vm.unit).toEqual(state.temperatureUnit.unit);
@@ -39,9 +38,6 @@ describe('UnitPicker.vue', () => {
 
   describe('unitPicked method', () => {
     test('triggering unitPicked with current unit value does not call mapped action', () => {
-      // Setup
-      const component = shallowMount(UnitPicker, { store, localVue });
-
       // Execute
       component.vm.unitPicked(state.temperatureUnit.unit);
 
@@ -50,9 +46,6 @@ describe('UnitPicker.vue', () => {
     });
 
     test('triggering unitPicked with different unit value does calls mapped action', () => {
-      // Setup
-      const component = shallowMount(UnitPicker, { store, localVue });
-
       // Execute
       component.vm.unitPicked('something different than Celsius');
 
