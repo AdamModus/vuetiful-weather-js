@@ -7,8 +7,11 @@ module.exports = {
   ],
   coverageDirectory: 'coverage',
   coverageReporters: ['lcov', 'text-summary'],
-  setupFiles: ['<rootDir>/tests/unit/jest.setup.js'],
-  testMatch: ['<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)'],
+  setupFiles: ['<rootDir>/tests/unit/config/jest.setup.js'],
+  testMatch: [
+    '<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)',
+    '<rootDir>/tests/unit/**/?(*.)+(spec|test).[jt]s?(x)',
+  ],
   coveragePathIgnorePatterns: [
     // Things I don't want to test nor cover in store
     '<rootDir>/src/store/index.js',
