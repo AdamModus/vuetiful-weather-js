@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "start": "vue-cli-service serve"
+    "bundle-analyzer": "vue-cli-service build --modern && node scripts/bundle-analyzer.js"
   },
   "dependencies": {
     "core-js": "^3.4.3",
