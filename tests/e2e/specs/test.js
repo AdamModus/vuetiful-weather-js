@@ -1,8 +1,7 @@
-// https://docs.cypress.io/api/introduction/api.html
-
-describe('My First Test', () => {
-  it('Visits the app root url', () => {
+describe('Main page', () => {
+  it('Test and subtitle are visible', () => {
     cy.visit('/');
-    cy.contains('h1', 'Welcome to Your Vue.js App');
+    cy.get('.v-toolbar__title > span').contains('Vuetiful Weather');
+    cy.get('.caption').contains('Powered by Vue/tify');
   });
 });
